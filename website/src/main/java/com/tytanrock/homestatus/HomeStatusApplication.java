@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HomeStatusApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HomeStatusApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(HomeStatusApplication.class, args);
+    }
 }
