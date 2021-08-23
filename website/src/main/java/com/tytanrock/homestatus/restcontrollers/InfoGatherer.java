@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InfoGatherer {
     @PostMapping("/sensor")
-    public ResponseEntity<String> sendInformation(@RequestBody HomeInformation info, Model model) {
+    public ResponseEntity<String> sendInformation(@RequestBody HomeInformationSlice info, Model model) {
 
         return ResponseEntity.ok().body("I didn't do anything with this");
     }
