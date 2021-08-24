@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: home-status
+  IMAGE_NAME: tytanrock/home-status
 
 jobs:
   build-and-push-image:
