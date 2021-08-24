@@ -27,9 +27,9 @@ jobs:
         run: cd website; ./gradlew build
       # Now do package deployment stuff
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@master
+        uses: docker/setup-qemu-action@v1
         with:
-          platforms: all
+          platforms: ["linux/amd64", "linux/arm64"]
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@master
