@@ -1,9 +1,12 @@
-package com.tytanrock.homestatus.restcontrollers;
+package com.tytanrock.homestatus.informationslice;
+
+import com.tytanrock.homestatus.common.DeviceType;
 
 @SuppressWarnings("unused")
-public class HomeInformationSlice {
+public class BaseInformationSlice {
     private String deviceName;
     private String deviceLocation;
+    private DeviceType deviceType;
 
     public String getDeviceName() {
         return deviceName;
@@ -19,5 +22,13 @@ public class HomeInformationSlice {
 
     public void setDeviceLocation(String deviceLocation) {
         this.deviceLocation = deviceLocation;
+    }
+
+    public DeviceType getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(DeviceType deviceType) {
+        this.deviceType = deviceType;
     }
 }
