@@ -34,5 +34,5 @@ jobs:
 
       - name: Publish the docker image
         run: |
-          name="$(echo '${{ github.actor }}' | awk '{print tolower($0)')"
+          name="$(echo '${{ github.actor }}' | awk '{print tolower($0)}')"
           docker push "ghcr.io/$name/home-status"
