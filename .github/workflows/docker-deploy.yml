@@ -5,40 +5,6 @@ on:
     branches: ['release', 'latest']
 
 jobs:
-
-  build-otherarch:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - arch: armv7
-          - arch: aarch64
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-        distribution: 'adopt'
-    - name: Log in to the Container registry
-      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Lowercase my name
-      run: |
-        name="$(echo '${{ github.actor }}' | awk '{print tolower($0)}')"
-        echo "IMAGE_NAME=$name/home-status" >> $GITHUB_ENV
-    - uses: uraimo/run-on-arch-action@v2.0.8
-      name: build and configure
-      with:
-        arch: ${{ matrix.arch }}
-        distro: buster
-        run: |
-          docker build -t ghcr.io/${{ env.USER_NAME }}/home-status .
-          docker push "ghcr.io/${{ env.USER_NAME }}/home-status:${{ matrix.arch }}"
         
   build-and-push-image:
     runs-on: ubuntu-latest
@@ -60,6 +26,13 @@ jobs:
       - name: Build with Gradle
         run: cd website; ./gradlew build
       # Now do package deployment stuff
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
@@ -78,7 +51,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
+          builder: ${{ steps.buildx.outputs.name }}
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
