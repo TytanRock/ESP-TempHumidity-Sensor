@@ -12,4 +12,11 @@ This first version includes just measuring temperature and humidity throughout t
 It includes an FTDI chip to program the ESP, the ESP itself, a temp/humidity sensor, and a Lithium-Ion charger with a connector for a Li-ion battery if I want to place it somewhere out of reach.
 The repo will also include source code once I get my first batch of boards in.
 
+## Board Views
+I don't have the physical boards currently, but I think it's always nice to see what the boards look like without downloading and viewing it through eagle.
+So here's the Top and Bottom boardview from Eagle.
+
+![Top Board](board/BoardTop.png)
+![Bottom Board](board/BoardBottom.png)
+
 Have fun with it if you think it's cool.
