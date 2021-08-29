@@ -27,10 +27,5 @@ jobs:
       run: cd website; ./gradlew spotlessCheck
     - name: Build with Gradle
       run: cd website; ./gradlew build
-    - name: Run with Gradle BootRun
-      run: |
-        cd website
-        ./gradlew bootRun &
-        CHILD_PID=$!
-        sleep 20
-        kill $CHILD_PID
+    - name: Test with Gradle
+      run: cd website; ./gradlew test
