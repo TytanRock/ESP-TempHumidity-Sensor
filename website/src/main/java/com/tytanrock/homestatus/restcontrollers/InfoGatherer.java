@@ -21,18 +21,22 @@ public class InfoGatherer {
 
     @PostMapping("/newBaseDevice")
     public ResponseEntity<String> addBaseDevice(@RequestBody BaseInformationSlice info, Model model) {
-        BaseDevice newDevice = new BaseDevice();
-        newDevice.setDeviceName(info.getDeviceName());
-        newDevice.setDeviceLocation(info.getDeviceLocation());
-        newDevice.setDeviceType(info.getDeviceType());
-        switch (info.getDeviceType()) {
-            case TempHumiditySensor:
-                TempHumidityDevice newSpecific = new TempHumidityDevice();
-                tempHumidityDeviceRepository.save(newSpecific);
-                newDevice.setChildDeviceReference(newSpecific.getId());
-                break;
+        try {
+            BaseDevice newDevice = new BaseDevice();
+            newDevice.setDeviceName(info.getDeviceName());
+            newDevice.setDeviceLocation(info.getDeviceLocation());
+            newDevice.setDeviceType(info.getDeviceType());
+            switch (info.getDeviceType()) {
+                case TempHumiditySensor:
+                    TempHumidityDevice newSpecific = new TempHumidityDevice();
+                    tempHumidityDeviceRepository.save(newSpecific);
+                    newDevice.setChildDeviceReference(newSpecific.getId());
+                    break;
+            }
+            baseDeviceRepository.save(newDevice);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.toString());
         }
-        baseDeviceRepository.save(newDevice);
 
         return ResponseEntity.ok().body("Added device");
     }

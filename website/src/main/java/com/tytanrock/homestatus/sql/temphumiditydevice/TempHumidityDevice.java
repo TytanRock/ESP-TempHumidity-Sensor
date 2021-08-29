@@ -3,6 +3,7 @@ package com.tytanrock.homestatus.sql.temphumiditydevice;
 import javax.persistence.*;
 
 @SuppressWarnings("unused")
+@Table(name = "TempHumidityDevice")
 @Entity
 public class TempHumidityDevice {
     @Id
