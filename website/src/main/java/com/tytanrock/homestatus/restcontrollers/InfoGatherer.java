@@ -1,7 +1,6 @@
 package com.tytanrock.homestatus.restcontrollers;
 
 import com.tytanrock.homestatus.informationslice.BaseInformationSlice;
-import com.tytanrock.homestatus.informationslice.TemperatureInformationSlice;
 import com.tytanrock.homestatus.sql.basedevice.BaseDevice;
 import com.tytanrock.homestatus.sql.basedevice.BaseDeviceRepository;
 import com.tytanrock.homestatus.sql.temphumiditydevice.TempHumidityDevice;
@@ -20,19 +19,15 @@ public class InfoGatherer {
     @Autowired private BaseDeviceRepository baseDeviceRepository;
     @Autowired private TempHumidityDeviceRepository tempHumidityDeviceRepository;
 
-    @PostMapping("/newdevice")
-    public ResponseEntity<String> addDevice(@RequestBody BaseInformationSlice info, Model model) {
+    @PostMapping("/newBaseDevice")
+    public ResponseEntity<String> addBaseDevice(@RequestBody BaseInformationSlice info, Model model) {
         BaseDevice newDevice = new BaseDevice();
         newDevice.setDeviceName(info.getDeviceName());
         newDevice.setDeviceLocation(info.getDeviceLocation());
         newDevice.setDeviceType(info.getDeviceType());
         switch (info.getDeviceType()) {
             case TempHumiditySensor:
-                TemperatureInformationSlice tempInfo = (TemperatureInformationSlice) info;
-
                 TempHumidityDevice newSpecific = new TempHumidityDevice();
-                newSpecific.setRelativeHumidity(tempInfo.getHumidityPercent());
-                newSpecific.setTemperature(tempInfo.getTemperatureC());
                 tempHumidityDeviceRepository.save(newSpecific);
                 newDevice.setChildDeviceReference(newSpecific.getId());
                 break;
