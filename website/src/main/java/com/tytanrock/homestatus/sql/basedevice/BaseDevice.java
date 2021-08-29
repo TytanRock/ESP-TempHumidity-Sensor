@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 @SuppressWarnings("unused")
 @Entity
+@Table(name = "BaseDevice")
 public class BaseDevice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
