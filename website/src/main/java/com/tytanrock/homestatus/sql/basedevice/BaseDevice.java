@@ -16,6 +16,12 @@ public class BaseDevice {
     private DeviceType deviceType;
     private Integer childDeviceReference;
 
+    public BaseDevice(String deviceName, String deviceLocation, DeviceType deviceType) {
+        this.deviceName = deviceName;
+        this.deviceLocation = deviceLocation;
+        this.deviceType = deviceType;
+    }
+
     public Integer getId() {
         return id;
     }

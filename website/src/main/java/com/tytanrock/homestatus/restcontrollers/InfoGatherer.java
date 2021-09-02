@@ -22,10 +22,8 @@ public class InfoGatherer {
     @PostMapping("/newBaseDevice")
     public ResponseEntity<String> addBaseDevice(@RequestBody BaseInformationSlice info, Model model) {
         try {
-            BaseDevice newDevice = new BaseDevice();
-            newDevice.setDeviceName(info.getDeviceName());
-            newDevice.setDeviceLocation(info.getDeviceLocation());
-            newDevice.setDeviceType(info.getDeviceType());
+            BaseDevice newDevice =
+                    new BaseDevice(info.getDeviceName(), info.getDeviceLocation(), info.getDeviceType());
             switch (info.getDeviceType()) {
                 case TempHumiditySensor:
                     TempHumidityDevice newSpecific = new TempHumidityDevice();
